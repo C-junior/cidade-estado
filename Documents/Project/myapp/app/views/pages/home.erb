@@ -1,0 +1,29 @@
+<div class="main">
+  <div class="container">
+    <h1>Escolha a cidade e estado</h1>
+
+  </div>
+
+
+<select name="state">
+<% CS.states(:br).each do |key, value| %>
+<option value="<%= key %>"><%= value%></option>
+<% end %>
+</select>
+ 
+<select name="city">
+</select>
+ 
+<script>
+$('select[name="state"]').change(function () {
+  var input_state = $(this);
+  $.getJSON('/cities/' + $(this).val(), function (data) {
+    input_state.empty();
+    $.each(data, function (i) {
+      var opt = '<option value='+ i +'>' + i + '</option>';
+      input_state.append(opt);
+    });
+  });
+});
+</script>
+</div>
